@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мій профіль</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100">
+
+    <header class="page-header">
+        <h1>Calculator <span>v1.0</span></h1>
+    </header>
+
+    <a href="auth.html" class="nav-box" style="top: 20px; left: 20px;">☰</a>
+
+    <a href="profile.html" class="nav-box" style="top: 80px; left: 20px;">웃</a>
+    <a href="calculator.html" class="nav-box" style="top: 140px; left: 20px;">Σ</a>
+
+    <a href="info.html" class="nav-box" style="bottom: 20px; left: 20px;">ⓘ</a>
+    <div class="side-line"></div>
+
+    <div class="calc-card p-4 bg-dark rounded shadow-lg">
+        <div class="text-center mb-4">
+            <h4 class="text-white">Профіль користувача</h4>
+        </div>
+
+        <div id="profile-info-block">
+            <div class="profile-info-row d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="text-white-50 small">Логін</div>
+                    <div class="text-white" id="login-text">Test</div>
+                </div>
+                <button type="button" class="edit-btn" onclick="changeDisplayToBlock('login-profile-edit')">Змінити</button>
+            </div>
+
+            <form onsubmit="event.preventDefault(); editAndChangeDisplayToNone('login-profile-edit', 'login')">
+                <input type="text" class="form-control" id="login-profile-edit" style="display:none" onblur="changeDisplayToNone('login-profile-edit')" />
+            </form>
+
+            <div class="profile-info-row d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="text-white-50 small">Електронна пошта</div>
+                    <div class="text-white" id="email-text">test@tmail.com</div>
+                </div>
+                <button type="button" class="edit-btn" onclick="changeDisplayToBlock('email-profile-edit', 'email')">Змінити</button>
+            </div>
+
+            <form onsubmit="event.preventDefault(); editAndChangeDisplayToNone('email-profile-edit')">
+                <input type="email" class="form-control" id="email-profile-edit" style="display:none" onblur="changeDisplayToNone('email-profile-edit')" />
+            </form>
+
+            <div class="profile-info-row d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="text-white-50 small">Пароль</div>
+                    <div class="text-white" id="password-text">************</div>
+                </div>
+
+                <div class="d-flex align-items-center gap-2">
+                    <label for="profile-password-checkbox" class="text-white-50 small" style="font-size: 0.75rem">Підглядати</label>
+                    <input type="checkbox" id="profile-password-checkbox" onchange="showOrHidePassword(this)" />
+                    <button type="button" class="edit-btn" onclick="changeDisplayToBlock('password-profile-edit')">Змінити</button>
+                </div>
+            </div>
+
+            <form onsubmit="event.preventDefault(); editAndChangeDisplayToNone('password-profile-edit', 'password')">
+                <input type="text" class="form-control" id="password-profile-edit" style="display:none" onblur="changeDisplayToNone('password-profile-edit')" />
+            </form>
+
+            <div class="profile-info-row d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="text-white-50 small">Дата реєстрації</div>
+                    <div class="text-white" id="date-text">67.52.2322</div>
+                </div>
+            </div>
+
+            <div class="text-while" style="text-align: right; color: red; margin-top: 15px; display: none" id="profile-edit-error"></div>
+
+            <button type="button" class="auth-btn mt-4" style="background-color: #333; color: #ff4c4c; border: 1px solid #444;" onclick="clearCurrentUser()">
+                Вийти з акаунту
+            </button>
+        </div>
+
+        <div id="no-profile-info-block" style="display: none; text-align: center; margin-top: 100px;"></div>
+    </div>
+
+    <footer>
+        Розроблено студентом <b>КВ-33</b> &copy; 2026
+    </footer>
+
+    <script src="JS/profile.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
