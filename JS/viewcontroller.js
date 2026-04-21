@@ -5,13 +5,14 @@ export default class ViewController {
     constructor() {
         this.view = new View();
         this.store = new Store((state) => this.view.render(state));
+        this.currentUser = null;
     }
 
     init() {
-        let c_currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-        if (!currentUser || !currentUser.login) {
-            window.assert("Can not work without account");
+        if (!this.currentUser || !this.currentUser.login) {
+            alert("Not logged in!");
             window.location.href = 'auth.html';
             return;
         } else {
@@ -19,7 +20,6 @@ export default class ViewController {
         }
 
         let usersData = JSON.parse(localStorage.getItem('usersData')) || {};
-
         let currentUserData = usersData[this.currentUser.login] || null;
 
         if (currentUserData) {
@@ -42,16 +42,19 @@ export default class ViewController {
             let op = val;
             if (val === '×') op = '*';
             else if (val === '÷') op = '/';
-            else if (val === 'x²') { op = '^2'; this.store.dispatch('FAST OP', op); return; }
-            else if (val === '²√x') { op = '2sqrt'; this.store.dispatch('FAST OP', op); return; }
-            else if (val === '¹/x') { op = '1/'; this.store.dispatch('FAST OP', op); return; }
-            else if (val === '+/-') { this.store.dispatch('FAST OP', op); return; }
-            this.store.dispatch('OP', op);
+
+            if (val === 'x²') { op = '^2'; this.store.dispatch('FAST OP', op);  }
+            else if (val === '²√x') { op = '2sqrt'; this.store.dispatch('FAST OP', op);  }
+            else if (val === '¹/x') { op = '1/'; this.store.dispatch('FAST OP', op);  }
+            else if (val === '+/-') { this.store.dispatch('FAST OP', op); }
+            else { this.store.dispatch('OP', op); }
         }
 
-        let usersData = JSON.parse(localStorage.getItem('usersData')) || {};
-        usersData[this.currentUser.login] = this.store.getState();
+        if (this.currentUser) {
 
-        localStorage.setItem('usersData', JSON.stringify(usersData));
+            let usersData = JSON.parse(localStorage.getItem('usersData')) || {};
+            usersData[this.currentUser.login] = this.store.getState();
+            localStorage.setItem('usersData', JSON.stringify(usersData));
+        }
     }
 }
