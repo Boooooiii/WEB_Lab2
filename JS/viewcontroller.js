@@ -15,9 +15,7 @@ export default class ViewController {
             alert("Not logged in!");
             window.location.href = 'auth.html';
             return;
-        } else {
-            this.currentUser = c_currentUser;
-        }
+        } 
 
         let usersData = JSON.parse(localStorage.getItem('usersData')) || {};
         let currentUserData = usersData[this.currentUser.login] || null;
