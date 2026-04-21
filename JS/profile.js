@@ -1,4 +1,5 @@
 ﻿let current_password = null;
+
 (function checkAuth() {
     const user_info = JSON.parse(localStorage.getItem('currentUser')) || {
         login: null,

@@ -8,6 +8,24 @@ export default class ViewController {
     }
 
     init() {
+        let c_currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        if (!currentUser || !currentUser.login) {
+            window.assert("Can not work without account");
+            window.location.href = 'auth.html';
+            return;
+        } else {
+            this.currentUser = c_currentUser;
+        }
+
+        let usersData = JSON.parse(localStorage.getItem('usersData')) || {};
+
+        let currentUserData = usersData[this.currentUser.login] || null;
+
+        if (currentUserData) {
+            this.store.setState(currentUserData);
+        } 
+
         document.querySelector('.row.g-2').parentElement.addEventListener('click', (e) => {
             const btn = e.target.closest('button');
             if (btn) this.handleInput(btn.textContent);
@@ -30,5 +48,10 @@ export default class ViewController {
             else if (val === '+/-') { this.store.dispatch('FAST OP', op); return; }
             this.store.dispatch('OP', op);
         }
+
+        let usersData = JSON.parse(localStorage.getItem('usersData')) || {};
+        usersData[this.currentUser.login] = this.store.getState();
+
+        localStorage.setItem('usersData', JSON.stringify(usersData));
     }
 }

@@ -10,6 +10,15 @@ export default class Store {
         this.render = render;
     }
 
+    setState(yourState) {
+        this.state = yourState;
+        this.render(this.state);
+    }
+
+    getState() {
+        return this.state;
+    }
+
     dispatch(actionType, payload) {
         this.state = this.reducer(this.state, actionType, payload);
         this.render(this.state);
